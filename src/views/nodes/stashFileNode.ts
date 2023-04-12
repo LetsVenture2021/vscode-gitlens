@@ -3,14 +3,15 @@ import type { GitFile } from '../../git/models/file';
 import type { RepositoriesView } from '../repositoriesView';
 import type { StashesView } from '../stashesView';
 import type { ViewsWithCommits } from '../viewBase';
+import type { WorkspacesView } from '../workspacesView';
 import { CommitFileNode } from './commitFileNode';
 import type { ViewNode } from './viewNode';
 import { ContextValues } from './viewNode';
 
-export class StashFileNode extends CommitFileNode<ViewsWithCommits | StashesView | RepositoriesView> {
+export class StashFileNode extends CommitFileNode<ViewsWithCommits | StashesView | RepositoriesView | WorkspacesView> {
 	// eslint-disable-next-line @typescript-eslint/no-useless-constructor
 	constructor(
-		view: ViewsWithCommits | StashesView | RepositoriesView,
+		view: ViewsWithCommits | StashesView | RepositoriesView | WorkspacesView,
 		parent: ViewNode,
 		file: GitFile,
 		commit: GitStashCommit,

@@ -10,6 +10,7 @@ import { sortCompare } from '../../system/string';
 import type { RepositoriesView } from '../repositoriesView';
 import type { StashesView } from '../stashesView';
 import type { ViewsWithCommits } from '../viewBase';
+import type { WorkspacesView } from '../workspacesView';
 import type { FileNode } from './folderNode';
 import { FolderNode } from './folderNode';
 import { RepositoryNode } from './repositoryNode';
@@ -17,14 +18,14 @@ import { StashFileNode } from './stashFileNode';
 import type { ViewNode } from './viewNode';
 import { ContextValues, ViewRefNode } from './viewNode';
 
-export class StashNode extends ViewRefNode<ViewsWithCommits | StashesView | RepositoriesView, GitStashReference> {
+export class StashNode extends ViewRefNode<ViewsWithCommits | StashesView | RepositoriesView | WorkspacesView, GitStashReference> {
 	static key = ':stash';
 	static getId(repoPath: string, ref: string): string {
 		return `${RepositoryNode.getId(repoPath)}${this.key}(${ref})`;
 	}
 
 	constructor(
-		view: ViewsWithCommits | StashesView | RepositoriesView,
+		view: ViewsWithCommits | StashesView | RepositoriesView | WorkspacesView,
 		parent: ViewNode,
 		public readonly commit: GitStashCommit,
 		private readonly options?: { icon?: boolean },
