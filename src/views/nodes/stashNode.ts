@@ -20,15 +20,18 @@ import { ContextValues, ViewRefNode } from './viewNode';
 
 export class StashNode extends ViewRefNode<ViewsWithCommits | StashesView | RepositoriesView | WorkspacesView, GitStashReference> {
 	static key = ':stash';
-	static getId(repoPath: string, ref: string): string {
-		return `${RepositoryNode.getId(repoPath)}${this.key}(${ref})`;
+	static getId(repoPath: string, ref: string, workspaceId?: string): string {
+		return `${RepositoryNode.getId(repoPath, workspaceId)}${this.key}(${ref})`;
 	}
 
 	constructor(
 		view: ViewsWithCommits | StashesView | RepositoriesView | WorkspacesView,
 		parent: ViewNode,
 		public readonly commit: GitStashCommit,
-		private readonly options?: { icon?: boolean },
+		private readonly options?: {
+            icon?: boolean;
+			workspaceId?: string;
+		},
 	) {
 		super(commit.getGitUri(), view, parent);
 	}
@@ -38,7 +41,7 @@ export class StashNode extends ViewRefNode<ViewsWithCommits | StashesView | Repo
 	}
 
 	override get id(): string {
-		return StashNode.getId(this.commit.repoPath, this.commit.sha);
+		return StashNode.getId(this.commit.repoPath, this.commit.sha, this.options?.workspaceId);
 	}
 
 	get ref(): GitStashReference {
